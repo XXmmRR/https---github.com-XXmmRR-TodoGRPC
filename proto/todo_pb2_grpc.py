@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import todo_pb2 as todo__pb2
+import proto.todo_pb2 as todo__pb2
 
 
 class TodoServiceStub(object):
@@ -39,25 +39,23 @@ class TodoServiceStub(object):
 class TodoServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetTodo(self, request, context):
+    def GetTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetTodoList(self, request, context):
+    def GetTodoList(self, request, context: grpc.aio.ServicerContext,):
+        """Missing associated documentation comment in .proto file."""
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateTodo(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DeleteTodo(self, request, context):
+    def DeleteTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')

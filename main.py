@@ -1,26 +1,26 @@
-import todo_pb2 
+import asyncio
+import proto.todo_pb2 as todo_pb2 
 import grpc
 import logging
-import todo_pb2_grpc
+import proto.todo_pb2_grpc as todo_pb2_grpc
 import time
 from concurrent import futures
 from google.protobuf import empty_pb2
 import os
 
-server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 
-# Add the TodoServicer to the server
-todo_pb2_grpc.add_TodoServiceServicer_to_server(todo_pb2_grpc.TodoServiceServicer(), server)
+async def serve() -> None:
+    server = grpc.aio.server()
+    todo_pb2_grpc.add_TodoServiceServicer_to_server(todo_pb2_grpc.TodoServiceServicer(), server)
+    listen_addr = "[::]:50051"
+    server.add_insecure_port(listen_addr)
+    logging.info("Starting server on %s", listen_addr)
+    await server.start()
+    await server.wait_for_termination()
 
-# Start the server
-server.add_insecure_port('[::]:50051')
-server.start()
-logging.info("Server started on port 50051")
 
 # Wait for the server to stop
-try:
-    while True:
-        time.sleep(86400)
-except KeyboardInterrupt:
-    server.stop(0)
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    asyncio.run(serve())
     
