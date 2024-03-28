@@ -24,6 +24,7 @@ message void {
 
 service TodoService {
     rpc GetTodo (GetTodoRequest) returns (Todo);
+    rpc CreateTodo (GetTodoRequest) returns (Todo);
     rpc GetTodoList (void) returns (TodoList);
     rpc UpdateTodo (GetTodoRequest) returns (Todo);
     rpc DeleteTodo (GetTodoRequest) returns (Todo);
