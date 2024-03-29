@@ -19,6 +19,11 @@ class TodoServiceStub(object):
                 request_serializer=todo__pb2.GetTodoRequest.SerializeToString,
                 response_deserializer=todo__pb2.Todo.FromString,
                 )
+        self.CreateTodo = channel.unary_unary(
+                '/todo.TodoService/CreateTodo',
+                request_serializer=todo__pb2.GetTodoRequest.SerializeToString,
+                response_deserializer=todo__pb2.Todo.FromString,
+                )
         self.GetTodoList = channel.unary_unary(
                 '/todo.TodoService/GetTodoList',
                 request_serializer=todo__pb2.void.SerializeToString,
@@ -29,6 +34,7 @@ class TodoServiceStub(object):
                 request_serializer=todo__pb2.GetTodoRequest.SerializeToString,
                 response_deserializer=todo__pb2.Todo.FromString,
                 )
+        
         self.DeleteTodo = channel.unary_unary(
                 '/todo.TodoService/DeleteTodo',
                 request_serializer=todo__pb2.GetTodoRequest.SerializeToString,
@@ -40,6 +46,12 @@ class TodoServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     async def GetTodo(self, request, context: grpc.aio.ServicerContext,):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateTodo(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -69,6 +81,11 @@ def add_TodoServiceServicer_to_server(servicer, server):
                     request_deserializer=todo__pb2.GetTodoRequest.FromString,
                     response_serializer=todo__pb2.Todo.SerializeToString,
             ),
+            'CreateTodo': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateTodo,
+                    request_deserializer=todo__pb2.GetTodoRequest.FromString,
+                    response_serializer=todo__pb2.Todo.SerializeToString,
+            ),
             'GetTodoList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTodoList,
                     request_deserializer=todo__pb2.void.FromString,
@@ -88,5 +105,4 @@ def add_TodoServiceServicer_to_server(servicer, server):
     generic_handler = grpc.method_handlers_generic_handler(
             'todo.TodoService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-
-
+        

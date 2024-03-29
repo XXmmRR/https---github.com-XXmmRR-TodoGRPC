@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ntodo.proto\x12\x04todo\x1a\x1bgoogle/protobuf/empty.proto\"6\n\x04Todo\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"\x1c\n\x0eGetTodoRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"%\n\x08TodoList\x12\x19\n\x05todos\x18\x01 \x03(\x0b\x32\n.todo.Todo\"\x06\n\x04void2\xc5\x01\n\x0bTodoService\x12+\n\x07GetTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todo\x12)\n\x0bGetTodoList\x12\n.todo.void\x1a\x0e.todo.TodoList\x12.\n\nUpdateTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todo\x12.\n\nDeleteTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ntodo.proto\x12\x04todo\x1a\x1bgoogle/protobuf/empty.proto\"6\n\x04Todo\x12\n\n\x02id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"\x1c\n\x0eGetTodoRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"%\n\x08TodoList\x12\x19\n\x05todos\x18\x01 \x03(\x0b\x32\n.todo.Todo\"\x06\n\x04void2\xf5\x01\n\x0bTodoService\x12+\n\x07GetTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todo\x12.\n\nCreateTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todo\x12)\n\x0bGetTodoList\x12\n.todo.void\x1a\x0e.todo.TodoList\x12.\n\nUpdateTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todo\x12.\n\nDeleteTodo\x12\x14.todo.GetTodoRequest\x1a\n.todo.Todob\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -31,5 +31,4 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_VOID']._serialized_start=174
   _globals['_VOID']._serialized_end=180
   _globals['_TODOSERVICE']._serialized_start=183
-  _globals['_TODOSERVICE']._serialized_end=380
-# @@protoc_insertion_point(module_scope)
+  _globals['_TODOSERVICE']._serialized_end=428
