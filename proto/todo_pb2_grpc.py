@@ -3,7 +3,7 @@
 import grpc
 from database.models.todo_models import Todo
 import proto.todo_pb2 as todo__pb2
-
+from google.protobuf import empty_pb2
 
 class TodoServiceStub(object):
     """Missing associated documentation comment in .proto file."""
@@ -47,32 +47,45 @@ class TodoServiceServicer(object):
 
     async def GetTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def CreateTodo(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        todo = await Todo.get(Todo.id==request.id)
+        if todo:
+            return todo__pb2.Todo(id=todo.id,
+                                  title=todo.title,
+                                  description=todo.description)
+        else:
+            return todo__pb2.Todo()
+        
+    async def CreateTodo(self, request, context: grpc.aio.ServicerContext):
+        todo = Todo(title=request.title, decription=request.description)
+        await todo.save()     
+        return todo__pb2.Todo(
+                id=todo.id,
+                title=todo.title,
+                description=todo.description,
+        )
 
     async def GetTodoList(self, request, context: grpc.aio.ServicerContext,):
-        """Missing associated documentation comment in .proto file."""
-        raise NotImplementedError('Method not implemented!')
-
+        todos = await Todo.all()
+        return [todo__pb2.Todo(id=x.id, title=x.title, description=x.description) for x in todos]
+        
+        
     async def UpdateTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
+        todo = await Todo.get(Todo.id==request.id)
+        await todo.update(title=request.title, decription=request.description)
+        return todo__pb2(title=request.title, description=request.description)
+        
+        
     async def DeleteTodo(self, request, context: grpc.aio.ServicerContext,):
         """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
+        todo = await Todo.get(Todo.id==request.id)
+        if todo:
+            await todo.delete()
+            return empty_pb2.Empty()
+        else:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("Todo not found")
+            return empty_pb2.Empty()
 
 def add_TodoServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
